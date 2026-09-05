@@ -1,17 +1,22 @@
+using _21WithEmilyWeb.Api.Data;
 using _21WithEmilyWeb.Api.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// register DbContext (scoped)
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// register services
+builder.Services.AddScoped<GameService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
-// Register GameService for dependency injection. Choose singleton so the nextId
-// counter is preserved across requests; change to Scoped/Transient if different
-// lifetime is desired.
-builder.Services.AddSingleton<GameService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
 ﻿using _21WithEmilyWeb.Api.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _21WithEmilyWeb.Api.Controllers
@@ -16,9 +15,9 @@ namespace _21WithEmilyWeb.Api.Controllers
         }
 
         [HttpPost("new-game")]
-        public int NewGame()
+        public async Task<int> NewGame()
         {
-            return service.NewGame();
+            return await service.NewGame();
         }
     }
 }
