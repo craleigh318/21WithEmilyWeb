@@ -1,0 +1,6 @@
+@_21WithEmilyWeb.Api_HostAddress = http://localhost:5247
+
+GET {{_21WithEmilyWeb.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
