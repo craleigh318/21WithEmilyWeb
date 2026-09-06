@@ -26,7 +26,7 @@ jobs:
           working-directory: 21WithEmilyWeb.Api
 
         - name: 'Deploy to Azure Container Instances'
-          uses: 'azure/aci-deploy@v2'
+          uses: 'azure/aci-deploy@v1'
           with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
             dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
