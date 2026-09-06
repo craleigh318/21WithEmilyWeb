@@ -2,7 +2,7 @@ on: [push]
 name: Linux_Container_Workflow
 
 env:
-  REGISTRY_NAME: 21WithEmily
+  REGISTRY_NAME: 21withemily
 
 jobs:
     build-and-deploy:
