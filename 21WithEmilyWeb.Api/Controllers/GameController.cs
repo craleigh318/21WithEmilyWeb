@@ -9,7 +9,7 @@ namespace _21WithEmilyWeb.Api.Controllers
     {
         private readonly GameService service;
 
-        public GameController(GameService service)
+        public GameController(GameService service) : base()
         {
             this.service = service;
         }
