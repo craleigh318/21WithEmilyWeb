@@ -2,7 +2,7 @@ on: [push]
 name: Linux_Container_Workflow
 
 env:
-  REGISTRY_NAME: 21withemily
+  IMAGE_NAME: 21withemilywebapi
 
 jobs:
     build-and-deploy:
@@ -13,28 +13,28 @@ jobs:
           uses: actions/checkout@main
           
         - name: 'Login via Azure CLI'
-          uses: azure/login@v1
+          uses: azure/login@v2
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
         
         - name: 'Build and push image'
-          uses: azure/docker-login@v1
+          uses: azure/docker-login@v2
           with:
             login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build -f ./21WithEmilyWeb.Api/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REGISTRY_NAME }}:${{ github.sha }}
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REGISTRY_NAME }}:${{ github.sha }}
+            docker build -f ./21WithEmilyWeb.Api/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
         - name: 'Deploy to Azure Container Instances'
           uses: 'azure/aci-deploy@v1'
           with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
             dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REGISTRY_NAME }}:${{ github.sha }}
+            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-            name: 21-with-emily-web-api
+            name: aci-${{ env.IMAGE_NAME }}
             location: 'westus2'
