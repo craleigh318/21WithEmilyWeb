@@ -2,16 +2,27 @@ using _21WithEmilyWeb.Api.Data;
 using _21WithEmilyWeb.Api.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Connect to database.
+var connectionStringName = "AZURE_SQL_CONNECTIONSTRING";
+string? connectionString = null;
 if (builder.Environment.IsProduction())
 {
-    var connectionStringName = "AZURE_SQL_CONNECTIONSTRING";
-    var connectionString = Environment.GetEnvironmentVariable(connectionStringName);
+    connectionString = Environment.GetEnvironmentVariable(connectionStringName);
+}
+else if (builder.Environment.IsStaging())
+{
+    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Staging.json");
+    connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
+}
+
+if (connectionString != null)
+{
     builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(connectionString));
+       options.UseSqlServer(connectionString));
 }
 else
 {
