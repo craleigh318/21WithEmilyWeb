@@ -65,12 +65,6 @@ using (var scope = app.Services.CreateScope())
         // For in-memory/dev SQLite: create the schema automatically
         db.Database.EnsureCreated();
     }
-    else
-    {
-        // For SQL Server (production): apply migrations only if you accept auto-migration
-        // Otherwise remove this line and apply migrations from your deployment pipeline
-        db.Database.Migrate();
-    }
 }
 
 app.Run();
