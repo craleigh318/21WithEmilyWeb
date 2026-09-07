@@ -26,16 +26,13 @@
       "publishAllPorts": true,
       "useSSL": true
     },
-    "Staging - Container (Dockerfile)": {
-      "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+    "Staging - http": {
+      "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_HTTPS_PORTS": "8081",
-        "ASPNETCORE_HTTP_PORTS": "8080",
         "ASPNETCORE_ENVIRONMENT": "Staging"
       },
-      "publishAllPorts": true,
-      "useSSL": true
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5247"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"
