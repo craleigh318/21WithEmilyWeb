@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Connect to database.
 if (builder.Environment.IsProduction())
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(connectionString));
 }
