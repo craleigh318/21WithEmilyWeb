@@ -17,10 +17,21 @@ namespace _21WithEmilyWeb.Api.Services
         public async Task<GameResponse> NewGame()
         {
             var game = new Game { Score = 0 };
-            db.Games.Add(game);
+            await db.Games.AddAsync(game);
             await db.SaveChangesAsync();
-            var response = GameToResponse(game);
-            return response;
+            return GameToResponse(game);
+        }
+
+        public async Task<GameResponse?> Count(int gameId, int count)
+        {
+            var game = await db.Games.FindAsync(gameId);
+            if (game != null)
+            {
+                game.Score = count;
+                await db.SaveChangesAsync();
+                return GameToResponse(game);
+            }
+            return null;
         }
 
         /*private static void NextTurn(Game game)
@@ -35,7 +46,7 @@ namespace _21WithEmilyWeb.Api.Services
         {
             var response = new GameResponse
             {
-                Id = game.Id,
+                GameId = game.Id,
                 Score = game.Score,
                 Winner = game.Winner,
                 AllowedCounts = ValidCounts(game.Score)

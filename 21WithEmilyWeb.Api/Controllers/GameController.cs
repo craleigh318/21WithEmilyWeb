@@ -20,5 +20,19 @@ namespace _21WithEmilyWeb.Api.Controllers
         {
             return await service.NewGame();
         }
+
+        [HttpPost("count")]
+        public async Task<ActionResult<GameResponse>> Count(
+        [FromBody] CountRequest request)
+        {
+            var response = await service.Count(request.GameId, request.Count);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
     }
 }
