@@ -6,7 +6,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5247"
+      "applicationUrl": "http://localhost:5289"
     },
     "https": {
       "commandName": "Project",
@@ -14,7 +14,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7070;http://localhost:5247"
+      "applicationUrl": "https://localhost:7106;http://localhost:5289"
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",
@@ -25,14 +25,6 @@
       },
       "publishAllPorts": true,
       "useSSL": true
-    },
-    "Staging - http": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Staging"
-      },
-      "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5247"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"
