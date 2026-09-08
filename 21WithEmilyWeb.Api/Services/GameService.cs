@@ -60,7 +60,7 @@ namespace _21WithEmilyWeb.Api.Services
             {
                 GameId = game.Id,
                 Score = game.Score,
-                Winner = game.Winner,
+                Winner = PlayerEnumToString(game.Winner),
                 AllowedCounts = ValidCounts(game.Score)
             };
             return response;
@@ -82,6 +82,19 @@ namespace _21WithEmilyWeb.Api.Services
             else
                 countsArray = null;
             return countsArray;
+        }
+
+        private static string? PlayerEnumToString(Player? playerEnum)
+        {
+            switch (playerEnum)
+            {
+                case Player.Player:
+                    return "Player";
+                case Player.Computer:
+                    return "Computer";
+                default:
+                    return null;
+            }
         }
     }
 }

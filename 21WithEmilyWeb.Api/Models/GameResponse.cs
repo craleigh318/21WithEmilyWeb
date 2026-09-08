@@ -4,7 +4,7 @@
     {
         public int GameId { get; set; }
         public int Score { get; set; }
-        public Player? Winner { get; set; }
+        public string? Winner { get; set; }
         public int[]? AllowedCounts { get; set; }
     }
 }
