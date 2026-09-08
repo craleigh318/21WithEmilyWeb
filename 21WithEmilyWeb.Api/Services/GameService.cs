@@ -27,6 +27,12 @@ namespace _21WithEmilyWeb.Api.Services
             var game = await db.Games.FindAsync(gameId);
             if (game != null)
             {
+                var validCounts = ValidCounts(game.Score);
+                if (!validCounts.Contains(count))
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
                 game.Score = count;
                 await db.SaveChangesAsync();
                 return GameToResponse(game);

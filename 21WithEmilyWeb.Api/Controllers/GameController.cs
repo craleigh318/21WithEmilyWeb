@@ -25,7 +25,21 @@ namespace _21WithEmilyWeb.Api.Controllers
         public async Task<ActionResult<GameResponse>> Count(
         [FromBody] CountRequest request)
         {
-            var response = await service.Count(request.GameId, request.Count);
+            GameResponse? response;
+
+            try
+            {
+                response = await service.Count(request.GameId, request.Count);
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                return BadRequest(new ProblemDetails
+                {
+                    Title = "You can only count by adding 1, 2, or 3 to the current score, and cannot count past 21.",
+                    Detail = exception.Message,
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
 
             if (response == null)
             {
