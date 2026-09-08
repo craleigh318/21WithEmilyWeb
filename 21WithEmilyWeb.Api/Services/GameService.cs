@@ -34,6 +34,12 @@ namespace _21WithEmilyWeb.Api.Services
                 }
 
                 game.Score = count;
+
+                if (count >= GOAL)
+                {
+                    game.Winner = Player.Computer;
+                }
+
                 await db.SaveChangesAsync();
                 return GameToResponse(game);
             }
