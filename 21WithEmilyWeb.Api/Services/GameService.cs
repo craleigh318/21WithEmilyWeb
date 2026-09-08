@@ -30,6 +30,9 @@ namespace _21WithEmilyWeb.Api.Services
                 if (game.Winner == null)
                     PlayersTurn(game, count);
 
+                if (game.Winner == null)
+                    ComputersTurn(game);
+
                 await db.SaveChangesAsync();
                 return GameToResponse(game);
             }
@@ -52,13 +55,27 @@ namespace _21WithEmilyWeb.Api.Services
             }
         }
 
-        /*private static void NextTurn(Game game)
+        private static void ComputersTurn(Game game)
         {
             var validCounts = ValidCounts(game.Score);
-            game.AllowedCounts = validCounts;
-            if (validCounts == null && game.Winner == null)
-                game.Winner = Player.Computer;
-        }*/
+            int selectedCount;
+            if (validCounts.Contains(GOAL))
+            {
+                selectedCount = GOAL;
+            }
+            else
+            {
+                var randomIndex = Random.Shared.Next(validCounts!.Length);
+                selectedCount = validCounts[randomIndex];
+            }
+
+            game.Score = selectedCount;
+
+            if (selectedCount >= GOAL)
+            {
+                game.Winner = Player.Player;
+            }
+        }
 
         private static GameResponse GameToResponse(Game game)
         {
@@ -97,7 +114,7 @@ namespace _21WithEmilyWeb.Api.Services
                 case Player.Player:
                     return "Player";
                 case Player.Computer:
-                    return "Computer";
+                    return "Emily";
                 default:
                     return null;
             }
