@@ -27,23 +27,29 @@ namespace _21WithEmilyWeb.Api.Services
             var game = await db.Games.FindAsync(gameId);
             if (game != null)
             {
-                var validCounts = ValidCounts(game.Score);
-                if (!validCounts.Contains(count))
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-
-                game.Score = count;
-
-                if (count >= GOAL)
-                {
-                    game.Winner = Player.Computer;
-                }
+                if (game.Winner == null)
+                    PlayersTurn(game, count);
 
                 await db.SaveChangesAsync();
                 return GameToResponse(game);
             }
             return null;
+        }
+
+        private static void PlayersTurn(Game game, int count)
+        {
+            var validCounts = ValidCounts(game.Score);
+            if (!validCounts.Contains(count))
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            game.Score = count;
+
+            if (count >= GOAL)
+            {
+                game.Winner = Player.Computer;
+            }
         }
 
         /*private static void NextTurn(Game game)
