@@ -5,8 +5,6 @@ namespace _21WithEmilyWeb.Api.Services
 {
     public class GameService
     {
-        public const int GOAL = 21;
-        
         private readonly AppDbContext db;
 
         public GameService(AppDbContext db)
@@ -31,7 +29,7 @@ namespace _21WithEmilyWeb.Api.Services
                     PlayersTurn(game, count);
 
                 if (game.Winner == null)
-                    ComputersTurn(game);
+                    OpponentAi.Turn(game);
 
                 await db.SaveChangesAsync();
                 return GameToResponse(game);
@@ -41,7 +39,7 @@ namespace _21WithEmilyWeb.Api.Services
 
         private static void PlayersTurn(Game game, int count)
         {
-            var validCounts = ValidCounts(game.Score);
+            var validCounts = Utils.ValidCounts(game.Score);
             if (!validCounts.Contains(count))
             {
                 throw new ArgumentOutOfRangeException();
@@ -49,31 +47,9 @@ namespace _21WithEmilyWeb.Api.Services
 
             game.Score = count;
 
-            if (count >= GOAL)
+            if (count >= Utils.GOAL)
             {
                 game.Winner = Player.Computer;
-            }
-        }
-
-        private static void ComputersTurn(Game game)
-        {
-            var validCounts = ValidCounts(game.Score);
-            int selectedCount;
-            if (validCounts.Contains(GOAL))
-            {
-                selectedCount = GOAL;
-            }
-            else
-            {
-                var randomIndex = Random.Shared.Next(validCounts!.Length);
-                selectedCount = validCounts[randomIndex];
-            }
-
-            game.Score = selectedCount;
-
-            if (selectedCount >= GOAL)
-            {
-                game.Winner = Player.Player;
             }
         }
 
@@ -84,27 +60,9 @@ namespace _21WithEmilyWeb.Api.Services
                 GameId = game.Id,
                 Score = game.Score,
                 Winner = PlayerEnumToString(game.Winner),
-                AllowedCounts = ValidCounts(game.Score)
+                AllowedCounts = Utils.ValidCounts(game.Score)
             };
             return response;
-        }
-
-        private static int[]? ValidCounts(int score)
-        {
-            int[]? countsArray;
-            var countsSet = new SortedSet<int>();
-            for (var i = 1; i <= 3; i++)
-            {
-                var count = score + i;
-                if (count > GOAL)
-                    break;
-                countsSet.Add(count);
-            }
-            if (countsSet.Count > 0)
-                countsArray = countsSet.ToArray();
-            else
-                countsArray = null;
-            return countsArray;
         }
 
         private static string? PlayerEnumToString(Player? playerEnum)
