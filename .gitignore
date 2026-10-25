@@ -3,6 +3,6 @@
 ################################################################################
 
 /.vs
-/21WithEmilyWeb.Api/obj
-/21WithEmilyWeb.Api/bin/Debug/net10.0
-/21WithEmilyWeb.Api/21WithEmilyWeb.Api.csproj.user
+**/obj/
+**/bin/
+*.csproj.user
