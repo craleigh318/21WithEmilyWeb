@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="21WithEmilyWeb.Api/21WithEmilyWeb.Api.csproj" Id="46017069-1944-4b03-8b12-4f9df5ac34de" />
+  <Project Path="21WithEmilyWeb.App/21WithEmilyWeb.App.Client/21WithEmilyWeb.App.Client.csproj" Id="22e13761-42af-4d1f-a18e-d7e711ce087f" />
+  <Project Path="21WithEmilyWeb.App/21WithEmilyWeb.App/21WithEmilyWeb.App.csproj" Id="b62a877e-76e7-4832-b114-f37d9cd9e9dc" />
 </Solution>
