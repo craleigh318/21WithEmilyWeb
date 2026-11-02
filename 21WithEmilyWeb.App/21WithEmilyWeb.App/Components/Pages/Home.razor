@@ -1,8 +1,22 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>21 with Emily</PageTitle>
 
-<img src="images/EmilyNormal.gif" />
-<button>1</button>
-<button>2</button>
-<button>3</button>
+@if (gameStarted)
+{
+    <Play />
+}
+else
+{
+    <Hi OnOk="StartGame" />
+}
+
+@code {
+    private bool gameStarted = false;
+
+    private void StartGame()
+    {
+        gameStarted = true;
+    }
+}

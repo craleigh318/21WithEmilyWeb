@@ -2,9 +2,11 @@
 
 <p style="white-space: pre-line">@AppResources.GetString("rulesMessage")</p>
 
-<button>OK</button>
+<button @onclick="OnOk">OK</button>
 
 @code {
+    [Parameter] public EventCallback OnOk { get; set; }
+
     private static readonly ResourceManager AppResources =
         new("_21WithEmilyWeb.App.Properties.Resources", typeof(Hi).Assembly);
 }
