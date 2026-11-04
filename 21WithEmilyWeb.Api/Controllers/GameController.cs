@@ -1,5 +1,5 @@
-﻿using _21WithEmilyWeb.Api.Models;
-using _21WithEmilyWeb.Api.Services;
+﻿using _21WithEmilyWeb.Api.Services;
+using _21WithEmilyWeb.Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _21WithEmilyWeb.Api.Controllers
