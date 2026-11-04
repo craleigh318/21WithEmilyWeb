@@ -1,4 +1,4 @@
-using _21WithEmilyWeb.App.Components;
+using _21WithEmilyWeb.App.Services;
 
 namespace _21WithEmilyWeb.App
 {
@@ -12,6 +12,14 @@ namespace _21WithEmilyWeb.App
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
+
+            var gameApiBaseUrlString = builder.Configuration["GameApi:BaseUrl"];
+            Uri.TryCreate(gameApiBaseUrlString, UriKind.Absolute, out var gameApiBaseUrl);
+
+            builder.Services.AddHttpClient<GameApiClient>(httpClient =>
+            {
+                httpClient.BaseAddress = gameApiBaseUrl;
+            });
 
             var app = builder.Build();
 
