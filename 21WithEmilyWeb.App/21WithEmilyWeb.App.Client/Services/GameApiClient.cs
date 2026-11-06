@@ -1,6 +1,7 @@
-﻿using _21WithEmilyWeb.Contracts.Dtos;
+using System.Net.Http.Json;
+using _21WithEmilyWeb.Contracts.Dtos;
 
-namespace _21WithEmilyWeb.App.Services
+namespace _21WithEmilyWeb.App.Client.Services
 {
     public class GameApiClient
     {

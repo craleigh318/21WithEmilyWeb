@@ -19,7 +19,11 @@
   <ItemGroup>
     <ProjectReference Include="..\21WithEmilyWeb.App.Client\21WithEmilyWeb.App.Client.csproj" />
     <ProjectReference Include="..\..\21WithEmilyWeb.Contracts\21WithEmilyWeb.Contracts.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

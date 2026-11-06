@@ -1,4 +1,4 @@
-using _21WithEmilyWeb.App.Services;
+using _21WithEmilyWeb.App.Client.Services;
 
 namespace _21WithEmilyWeb.App
 {

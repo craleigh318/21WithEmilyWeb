@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\21WithEmilyWeb.Contracts\21WithEmilyWeb.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
