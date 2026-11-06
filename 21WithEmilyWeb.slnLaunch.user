@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Full Stack",
+    "Projects": [
+      {
+        "Path": "21WithEmilyWeb.Api\\21WithEmilyWeb.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "21WithEmilyWeb.App\\21WithEmilyWeb.App\\21WithEmilyWeb.App.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]
