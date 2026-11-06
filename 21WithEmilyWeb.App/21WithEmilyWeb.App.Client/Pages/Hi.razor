@@ -9,8 +9,9 @@
     <p>Good luck! 😀</p>
 </div>
 
-<button @onclick="OnOk">OK</button>
+<button @onclick="OnOk" disabled="@(!OkButtonEnabled)">OK</button>
 
 @code {
     [Parameter] public EventCallback OnOk { get; set; }
+    [Parameter] public bool OkButtonEnabled { get; set; } = true;
 }
