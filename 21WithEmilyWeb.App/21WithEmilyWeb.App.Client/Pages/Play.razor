@@ -1,8 +1,8 @@
-﻿<img src="images/EmilyNormal.gif" />
-<button>1</button>
-<button>2</button>
-<button>3</button>
+﻿<img src="images/@(EmilyThinking ? "EmilyThinking" : "EmilyNormal").gif" />
+<button disabled="@EmilyThinking">1</button>
+<button disabled="@EmilyThinking">2</button>
+<button disabled="@EmilyThinking">3</button>
 
 @code {
-
+	[Parameter] public bool EmilyThinking { get; set; } = false;
 }
