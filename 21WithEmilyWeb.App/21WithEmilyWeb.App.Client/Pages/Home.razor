@@ -1,22 +1,39 @@
 ﻿@page "/"
 @rendermode InteractiveAuto
+@inject _21WithEmilyWeb.App.Client.Services.GameApiClient GameApiClient
+@inject Microsoft.Extensions.Logging.ILogger<Home> Logger
 
 <PageTitle>21 with Emily</PageTitle>
 
-@if (gameStarted)
+@if (gameId is not null)
 {
-    <Play />
+	<Play />
 }
 else
 {
-    <Hi OnOk="StartGame" />
+	<Hi OnOk="StartGame" OkButtonEnabled="@(!isStartingGame)" />
 }
 
 @code {
-    private bool gameStarted = false;
+	private int? gameId = null;
+	private bool isStartingGame = false;
 
-    private void StartGame()
-    {
-        gameStarted = true;
-    }
+	private async Task StartGame()
+	{
+		isStartingGame = true;
+		await InvokeAsync(StateHasChanged);
+		try
+		{
+			var response = await GameApiClient.NewGameAsync();
+			gameId = response.GameId;
+		}
+		catch (Exception exception)
+		{
+			Logger.LogError(exception, "Failed to start a new game.");
+		}
+		finally
+		{
+			isStartingGame = false;
+		}
+	}
 }
