@@ -6,9 +6,9 @@
 
 <PageTitle>21 with Emily</PageTitle>
 
-@if (gameId is not null)
+@if (gameState is not null)
 {
-	<Play EmilyThinking="@emilyThinking" CountOptions="@countOptions" OnCountSelected="HandleCountSelected" />
+	<Play GameState="@gameState" EmilyThinking="@emilyThinking" OnCountSelected="HandleCountSelected" />
 }
 else
 {
@@ -16,10 +16,9 @@ else
 }
 
 @code {
-	private int? gameId = null;
+	private GameResponse? gameState = null;
 	private bool isStartingGame = false;
 	private bool emilyThinking = false;
-	private int[] countOptions = [];
 
 	private async Task StartGame()
 	{
@@ -27,9 +26,7 @@ else
 		await InvokeAsync(StateHasChanged);
 		try
 		{
-			var response = await GameApiClient.NewGameAsync();
-			gameId = response.GameId;
-			countOptions = response.AllowedCounts ?? [];
+			gameState = await GameApiClient.NewGameAsync();
 		}
 		catch (Exception exception)
 		{
@@ -43,7 +40,7 @@ else
 
 	private async Task HandleCountSelected(int count)
 	{
-		if (gameId is not int activeGameId)
+		if (gameState is not GameResponse activeGameState)
 		{
 			return;
 		}
@@ -53,16 +50,15 @@ else
 		{
 			var request = new CountRequest
 			{
-				GameId = activeGameId,
+				GameId = activeGameState.GameId,
 				Count = count
 			};
 
-			var response = await GameApiClient.CountAsync(request);
-			countOptions = response.AllowedCounts ?? [];
+			gameState = await GameApiClient.CountAsync(request);
 		}
 		catch (Exception exception)
 		{
-			Logger.LogError(exception, "Failed to submit a count of {Count} for game {GameId}.", count, activeGameId);
+			Logger.LogError(exception, "Failed to submit a count of {Count} for game {GameId}.", count, activeGameState.GameId);
 		}
 		finally
 		{
