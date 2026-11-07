@@ -1,15 +1,17 @@
-﻿<div>
-    <p>Hiya, I'm Emily!</p>
+﻿<section class="game-layout" aria-label="Introduction">
+    <div class="hi-copy">
+        <p>Hiya, I'm Emily!</p>
     <p>
         <div>We're gonna play 21.</div>
         <div>You count by 1, 2, or 3, and I do the same.</div>
         <div>We take turns until one of us counts to 21.</div>
         <div>Whoever counts to 21 is the loooser!</div>
     </p>
-    <p>Good luck! 😀</p>
-</div>
+        <p>Good luck! 😀</p>
+    </div>
 
-<button @onclick="OnOk" disabled="@(!OkButtonEnabled)">OK</button>
+    <button class="game-button" @onclick="OnOk" disabled="@(!OkButtonEnabled)">OK</button>
+</section>
 
 @code {
     [Parameter] public EventCallback OnOk { get; set; }

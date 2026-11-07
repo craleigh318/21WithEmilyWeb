@@ -36,3 +36,50 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.game-layout {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: min(90vw, 26rem);
+    margin-inline: auto;
+    padding: 1rem 0;
+}
+
+.play-score {
+    align-self: stretch;
+    margin: 0;
+}
+
+.play-emily {
+    display: block;
+    max-width: 100%;
+    max-height: 45vh;
+    height: auto;
+    object-fit: contain;
+}
+
+.game-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    text-align: center;
+}
+
+.game-button {
+    width: 100%;
+    min-height: 3.25rem;
+    font-size: 1.125rem;
+}
+
+.hi-copy {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.hi-copy p {
+    margin: 0;
+}
