@@ -1,5 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveAuto
+@using _21WithEmilyWeb.Contracts.Dtos
 @inject _21WithEmilyWeb.App.Client.Services.GameApiClient GameApiClient
 @inject Microsoft.Extensions.Logging.ILogger<Home> Logger
 
@@ -7,7 +8,7 @@
 
 @if (gameId is not null)
 {
-	<Play />
+	<Play EmilyThinking="@emilyThinking" CountOptions="@countOptions" OnCountSelected="HandleCountSelected" />
 }
 else
 {
@@ -17,6 +18,8 @@ else
 @code {
 	private int? gameId = null;
 	private bool isStartingGame = false;
+	private bool emilyThinking = false;
+	private int[] countOptions = [];
 
 	private async Task StartGame()
 	{
@@ -26,6 +29,7 @@ else
 		{
 			var response = await GameApiClient.NewGameAsync();
 			gameId = response.GameId;
+			countOptions = response.AllowedCounts ?? [];
 		}
 		catch (Exception exception)
 		{
@@ -34,6 +38,35 @@ else
 		finally
 		{
 			isStartingGame = false;
+		}
+	}
+
+	private async Task HandleCountSelected(int count)
+	{
+		if (gameId is not int activeGameId)
+		{
+			return;
+		}
+
+		emilyThinking = true;
+		try
+		{
+			var request = new CountRequest
+			{
+				GameId = activeGameId,
+				Count = count
+			};
+
+			var response = await GameApiClient.CountAsync(request);
+			countOptions = response.AllowedCounts ?? [];
+		}
+		catch (Exception exception)
+		{
+			Logger.LogError(exception, "Failed to submit a count of {Count} for game {GameId}.", count, activeGameId);
+		}
+		finally
+		{
+			emilyThinking = false;
 		}
 	}
 }

@@ -1,9 +1,10 @@
 ﻿<img src="images/@(EmilyThinking ? "EmilyThinking" : "EmilyNormal").gif" />
-<button disabled="@(EmilyThinking || CountOptions.Length < 1)">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
-<button disabled="@(EmilyThinking || CountOptions.Length < 2)">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
-<button disabled="@(EmilyThinking || CountOptions.Length < 3)">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
+<button disabled="@(EmilyThinking || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
+<button disabled="@(EmilyThinking || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
+<button disabled="@(EmilyThinking || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
 
 @code {
 	[Parameter] public bool EmilyThinking { get; set; } = false;
 	[Parameter] public int[] CountOptions { get; set; } = [];
+	[Parameter] public EventCallback<int> OnCountSelected { get; set; }
 }
