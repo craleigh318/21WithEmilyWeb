@@ -4,13 +4,16 @@ namespace _21WithEmilyWeb.Api.Services
 {
     public class OpponentAi
     {
+        private const int guaranteedWin = Utils.GOAL - 1;
+
         public static void Turn(Game game)
         {
             var validCounts = Utils.ValidCounts(game.Score);
             int selectedCount;
-            if (validCounts.Contains(Utils.GOAL))
+
+            if (validCounts.Contains(guaranteedWin))
             {
-                selectedCount = Utils.GOAL;
+                selectedCount = guaranteedWin;
             }
             else
             {
