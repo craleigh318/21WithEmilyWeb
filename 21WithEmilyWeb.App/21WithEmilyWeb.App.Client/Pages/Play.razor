@@ -1,11 +1,15 @@
 ﻿@using _21WithEmilyWeb.Contracts.Dtos
 
-<p>Score: @GameState.Score</p>
+<section class="play-layout" aria-label="Game">
+    <p class="play-score">Score: @GameState.Score</p>
 
-<img src="images/Emily@(EmilyImageName).gif" />
-<button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
-<button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
-<button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
+    <img class="play-emily" src="images/Emily@(EmilyImageName).gif" alt="Emily" />
+    <div class="play-buttons" role="group" aria-label="Choose a count">
+        <button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
+        <button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
+        <button disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
+    </div>
+</section>
 
 @code {
 	[Parameter] public GameResponse GameState { get; set; } = default!;
