@@ -9,6 +9,7 @@
         <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
         <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
     </div>
+    <div class="game-outcome" role="status" aria-live="polite">@OutcomeMessage</div>
 </section>
 
 @code {
@@ -17,6 +18,12 @@
 	[Parameter] public EventCallback<int> OnCountSelected { get; set; }
 
 	private int[] CountOptions => GameState.AllowedCounts ?? [];
+    private string OutcomeMessage => GameState.Winner switch
+    {
+        "Player" => "You win!",
+        "Emily" => "You lose!",
+        _ => string.Empty
+    };
 
     private string EmilyImageName
     {
