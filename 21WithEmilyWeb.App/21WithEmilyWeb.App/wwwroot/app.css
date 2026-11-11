@@ -51,6 +51,9 @@ h1:focus {
 .play-score {
     align-self: stretch;
     margin: 0;
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .play-emily {
@@ -88,6 +91,6 @@ h1:focus {
     gap: 0.5rem;
 }
 
-.hi-copy p {
-    margin: 0;
-}
+    .hi-copy p {
+        margin: 0;
+    }

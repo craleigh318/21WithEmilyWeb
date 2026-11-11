@@ -1,9 +1,10 @@
 ﻿@using _21WithEmilyWeb.Contracts.Dtos
 
 <section class="game-layout" aria-label="Game">
-    <p class="play-score">Current Number: @GameState.Score</p>
-
     <img class="play-emily" src="images/Emily@(EmilyImageName).gif" alt="Emily" />
+
+    <p class="play-score">@GameState.Score</p>
+
     <div class="game-buttons" role="group" aria-label="Choose a count">
         <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
         <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
