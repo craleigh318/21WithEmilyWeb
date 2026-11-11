@@ -6,17 +6,20 @@
     <p class="play-score">@GameState.Score</p>
 
     <div class="game-buttons" role="group" aria-label="Choose a count">
-        <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
-        <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
-        <button class="game-button" disabled="@(EmilyThinking || GameState.Winner is not null || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
+        <button class="game-button" disabled="@(IsStartingGame || EmilyThinking || GameState.Winner is not null || CountOptions.Length < 1)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[0])">@(CountOptions.Length > 0 ? CountOptions[0].ToString() : string.Empty)</button>
+        <button class="game-button" disabled="@(IsStartingGame || EmilyThinking || GameState.Winner is not null || CountOptions.Length < 2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[1])">@(CountOptions.Length > 1 ? CountOptions[1].ToString() : string.Empty)</button>
+        <button class="game-button" disabled="@(IsStartingGame || EmilyThinking || GameState.Winner is not null || CountOptions.Length < 3)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@(CountOptions.Length > 2 ? CountOptions[2].ToString() : string.Empty)</button>
     </div>
     <div class="game-outcome" role="status" aria-live="polite">@OutcomeMessage</div>
+    <button class="game-button" disabled="@(IsStartingGame || EmilyThinking)" @onclick="OnNewGame">New Game</button>
 </section>
 
 @code {
 	[Parameter] public GameResponse GameState { get; set; } = default!;
-	[Parameter] public bool EmilyThinking { get; set; } = false;
-	[Parameter] public EventCallback<int> OnCountSelected { get; set; }
+    [Parameter] public bool EmilyThinking { get; set; } = false;
+    [Parameter] public bool IsStartingGame { get; set; } = false;
+    [Parameter] public EventCallback<int> OnCountSelected { get; set; }
+    [Parameter] public EventCallback OnNewGame { get; set; }
 
 	private int[] CountOptions => GameState.AllowedCounts ?? [];
     private string OutcomeMessage => GameState.Winner switch

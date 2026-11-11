@@ -8,7 +8,7 @@
 
 @if (gameState is not null)
 {
-	<Play GameState="@gameState" EmilyThinking="@emilyThinking" OnCountSelected="HandleCountSelected" />
+	<Play GameState="@gameState" EmilyThinking="@emilyThinking" IsStartingGame="@isStartingGame" OnCountSelected="HandleCountSelected" OnNewGame="StartGame" />
 }
 else
 {
