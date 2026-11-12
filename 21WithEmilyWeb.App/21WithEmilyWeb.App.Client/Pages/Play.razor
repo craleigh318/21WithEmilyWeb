@@ -12,7 +12,7 @@
         <button class="game-button" disabled="@IsCountDisabled(2)" @onclick="() => OnCountSelected.InvokeAsync(CountOptions[2])">@GetCountText(2)</button>
     </div>
     <div class="game-outcome" role="status" aria-live="polite">@OutcomeMessage</div>
-    <button class="game-button" disabled="@(IsStartingGame || EmilyThinking)" @onclick="OnNewGame">New Game</button>
+    <button class="game-button" disabled="@(IsStartingGame || EmilyThinking || GameState.Score <= 0)" @onclick="OnNewGame">New Game</button>
     <dl class="win-scoreboard" aria-label="Win record">
         <div>
             <dt>Your wins</dt>

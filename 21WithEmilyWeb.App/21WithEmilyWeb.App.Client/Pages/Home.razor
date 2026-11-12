@@ -25,11 +25,16 @@ else
 
 	private async Task StartGame()
 	{
+		var isAbandoningGame = gameState is { Score: > 0 and < 21 };
 		isStartingGame = true;
 		await InvokeAsync(StateHasChanged);
 		try
 		{
 			gameState = await GameApiClient.NewGameAsync();
+			if (isAbandoningGame)
+			{
+				emilyWins++;
+			}
 			hasCountedGameResult = false;
 		}
 		catch (Exception exception)
