@@ -13,12 +13,28 @@
     </div>
     <div class="game-outcome" role="status" aria-live="polite">@OutcomeMessage</div>
     <button class="game-button" disabled="@(IsStartingGame || EmilyThinking)" @onclick="OnNewGame">New Game</button>
+    <dl class="win-scoreboard" aria-label="Win record">
+        <div>
+            <dt>Your wins</dt>
+            <dd>@PlayerWins</dd>
+        </div>
+        <div>
+            <dt>Emily's wins</dt>
+            <dd>@EmilyWins</dd>
+        </div>
+        <div>
+            <dt>Total wins</dt>
+            <dd>@(PlayerWins + EmilyWins)</dd>
+        </div>
+    </dl>
 </section>
 
 @code {
 	[Parameter] public GameResponse GameState { get; set; } = default!;
     [Parameter] public bool EmilyThinking { get; set; } = false;
     [Parameter] public bool IsStartingGame { get; set; } = false;
+    [Parameter] public int PlayerWins { get; set; } = 0;
+    [Parameter] public int EmilyWins { get; set; } = 0;
     [Parameter] public EventCallback<int> OnCountSelected { get; set; }
     [Parameter] public EventCallback OnNewGame { get; set; }
 

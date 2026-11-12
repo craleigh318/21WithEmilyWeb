@@ -87,6 +87,27 @@ h1:focus {
     background-color: white;
 }
 
+.win-scoreboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem;
+    background-color: white;
+    text-align: center;
+}
+
+    .win-scoreboard > div {
+        display: grid;
+        gap: 0.25rem;
+    }
+
+    .win-scoreboard dd {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
 .game-button {
     width: 100%;
     min-height: 3.25rem;
