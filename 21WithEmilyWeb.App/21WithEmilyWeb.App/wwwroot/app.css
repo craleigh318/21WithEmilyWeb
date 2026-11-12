@@ -48,6 +48,13 @@ h1:focus {
     padding: 1rem 0;
 }
 
+.game-id {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+}
+
 .play-score {
     align-self: stretch;
     margin: 0;
